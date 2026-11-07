@@ -1,4 +1,4 @@
-# Enterprise Multi-Agent RAG Platform
+# intelligent document search retrievel system
 
 **EnterpriseRAG** is a full-stack, multi-user document intelligence platform built with FastAPI, React, PostgreSQL/pgvector, Elasticsearch, Redis/Celery, Sentence Transformers, LangChain-compatible components, and LangGraph orchestration.
 
