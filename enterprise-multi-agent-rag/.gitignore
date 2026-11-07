@@ -20,6 +20,7 @@ logs/
 redis-data/
 elasticsearch-data/
 ollama-data/
+*.tsbuildinfo
 .DS_Store
 Thumbs.db
 .vscode/

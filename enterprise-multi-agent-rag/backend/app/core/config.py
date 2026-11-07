@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://enterpriserag:enterpriserag@localhost:5432/enterpriserag"
     redis_url: str = "redis://localhost:6379/0"
     elasticsearch_url: str = "http://localhost:9200"
+    elasticsearch_api_key: str = ""
     jwt_secret: str = "dev-only-change-me"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 60
@@ -33,6 +34,16 @@ class Settings(BaseSettings):
     celery_task_always_eager: bool = False
     admin_email: str = "admin@example.com"
     admin_password: str = ""
+
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def normalize_database_url(cls, value):
+        if isinstance(value, str):
+            if value.startswith("postgres://"):
+                return value.replace("postgres://", "postgresql+psycopg://", 1)
+            elif value.startswith("postgresql://") and not value.startswith("postgresql+"):
+                return value.replace("postgresql://", "postgresql+psycopg://", 1)
+        return value
 
     @field_validator("cors_origins", mode="before")
     @classmethod

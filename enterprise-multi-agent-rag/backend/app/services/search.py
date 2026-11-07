@@ -20,7 +20,10 @@ class HybridSearchService:
     index_name = "enterprise_rag_chunks"
 
     def __init__(self):
-        self.es = Elasticsearch(settings.elasticsearch_url, request_timeout=10)
+        es_kwargs = {"request_timeout": 10}
+        if settings.elasticsearch_api_key:
+            es_kwargs["api_key"] = settings.elasticsearch_api_key
+        self.es = Elasticsearch(settings.elasticsearch_url, **es_kwargs)
 
     def ensure_index(self):
         if not self.es.indices.exists(index=self.index_name):
